@@ -1,4 +1,4 @@
-package org.bird.breeze.breeze.session;
+package org.bird.breeze.session;
 
 
 public class SessionShareTest {
