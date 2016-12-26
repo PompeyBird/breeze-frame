@@ -89,8 +89,10 @@ public class ShareSession implements HttpSession  {
 
 	@Override
 	public void invalidate() {
-		// TODO Auto-generated method stub
-		
+		if(null != sessionManager){
+			sessionManager.removeLocalSession(this);
+			sessionManager.removeLocalSession(this);
+		}
 	}
 
 	@Override
