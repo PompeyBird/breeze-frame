@@ -6,11 +6,13 @@ import org.bird.breeze.session.impl.ShareSession;
 
 public interface ISessionManager {
 	
-	public ShareSession getRemoteSession(String seesionId);
-	public void removeRemoteSession(ShareSession seesion);
-	public void setRemoteSession(ShareSession seesion);
-	public ShareSession getLocalSession(String seesionId);
-	public void setLocalSession(ShareSession seesion);
+	public String[] getSessionIds();
+	public ShareSession getRemoteSession(String sessionId);
+	public void removeRemoteSession(ShareSession session);
+	public void setRemoteSession(ShareSession session);
+	public ShareSession getLocalSession(String sessionId);
+	public void setLocalSession(ShareSession session);
+	public void removeLocalSession(ShareSession session);
 	public int getMaxInactiveInterval();
 	public void setMaxInactiveInterval(int maxInactiveInterval);
 	public ServletContext getServletContext();

@@ -1,5 +1,7 @@
 package org.bird.breeze.session.manager;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
@@ -13,19 +15,28 @@ public class RedisSessionManager implements ISessionManager {
 	private int maxInactiveInterval = 20*60*1000;
 	
 	@Override
-	public ShareSession getRemoteSession(String seesionId) {
+	public String[] getSessionIds() {
+		if(null != sessionMap){
+			ArrayList<String> keys = Collections.list(sessionMap.keys());
+			return keys.toArray(new String[0]);
+		}
+		return null;
+	}
+	
+	@Override
+	public ShareSession getRemoteSession(String sessionId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void removeRemoteSession(ShareSession seesion) {
+	public void removeRemoteSession(ShareSession session) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setRemoteSession(ShareSession seesion) {
+	public void setRemoteSession(ShareSession session) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -51,14 +62,21 @@ public class RedisSessionManager implements ISessionManager {
 	}
 
 	@Override
-	public ShareSession getLocalSession(String seesionId) {
-		return sessionMap.get(seesionId);
+	public ShareSession getLocalSession(String sessionId) {
+		return sessionMap.get(sessionId);
 	}
 
 	@Override
-	public void setLocalSession(ShareSession seesion) {
-		if(null != seesion){
-			sessionMap.put(seesion.getId(), seesion);
+	public void setLocalSession(ShareSession session) {
+		if(null != session){
+			sessionMap.put(session.getId(), session);
+		}
+	}
+	
+	@Override
+	public void removeLocalSession(ShareSession session) {
+		if(null != session){
+			sessionMap.remove(session.getId());
 		}
 	}
 
