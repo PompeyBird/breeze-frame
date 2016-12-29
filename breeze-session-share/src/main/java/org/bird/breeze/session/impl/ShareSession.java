@@ -1,5 +1,6 @@
 package org.bird.breeze.session.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -12,7 +13,12 @@ import javax.servlet.http.HttpSessionContext;
 import org.bird.breeze.session.manager.ISessionManager;
 
 @SuppressWarnings("deprecation")
-public class ShareSession implements HttpSession  {
+public class ShareSession implements HttpSession, Serializable  {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7121801873575605745L;
 	
 	private String sessionId = null;
 	private ConcurrentHashMap<String, Object> attributes = null;
