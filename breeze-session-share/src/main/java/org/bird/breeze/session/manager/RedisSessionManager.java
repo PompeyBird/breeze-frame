@@ -7,6 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletContext;
 
 import org.bird.breeze.session.impl.ShareSession;
+import org.bird.breeze.util.RedisUtils;
+import org.bird.breeze.util.SerializeUtils;
+import redis.clients.jedis.Jedis;
 
 public class RedisSessionManager implements ISessionManager {
 
@@ -25,20 +28,29 @@ public class RedisSessionManager implements ISessionManager {
 	
 	@Override
 	public ShareSession getRemoteSession(String sessionId) {
-		// TODO Auto-generated method stub
+		Jedis jedis = RedisUtils.getJedis();
+		byte[] keys = SerializeUtils.objectToByte(sessionId);
+		byte[] values = jedis.get(keys);
+		ShareSession session = (ShareSession)SerializeUtils.byteToObject(values);
+		RedisUtils.returnResource(jedis);
 		return null;
 	}
 
 	@Override
 	public void removeRemoteSession(ShareSession session) {
-		// TODO Auto-generated method stub
-		
+		Jedis jedis = RedisUtils.getJedis();
+		byte[] keys = SerializeUtils.objectToByte(session.getId());
+		jedis.del(keys);
+		RedisUtils.returnResource(jedis);
 	}
 
 	@Override
 	public void setRemoteSession(ShareSession session) {
-		// TODO Auto-generated method stub
-		
+		Jedis jedis = RedisUtils.getJedis();
+		byte[] keys = SerializeUtils.objectToByte(session.getId());
+		byte[] values = SerializeUtils.objectToByte(session);
+		jedis.set(keys,values);
+		RedisUtils.returnResource(jedis);
 	}
 
 	@Override
