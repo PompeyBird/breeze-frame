@@ -26,6 +26,7 @@ public class SessionShareTest {
         String sessionId = "dsadadasdsadadweqwdsada";
         ShareSession session = new ShareSession(sessionId, sessionManager);
         sessionManager.setRemoteSession(session);
+        System.out.println("set ok");
     }
 
     @Test
@@ -33,6 +34,7 @@ public class SessionShareTest {
         String sessionId = "dsadadasdsadadweqwdsada";
         ShareSession session = sessionManager.getRemoteSession(sessionId);
         System.out.println(session.getId());
+        System.out.println("get ok");
     }
 
     @Test
@@ -40,7 +42,10 @@ public class SessionShareTest {
         String sessionId = "dsadadasdsadadweqwdsada";
         ShareSession session = sessionManager.getRemoteSession(sessionId);
         sessionManager.removeRemoteSession(session);
-        System.out.println(session.getId());
+        ShareSession session1 = sessionManager.getRemoteSession(sessionId);
+        if(session1 == null){
+            System.out.println("delete ok");
+        }
     }
 
 }

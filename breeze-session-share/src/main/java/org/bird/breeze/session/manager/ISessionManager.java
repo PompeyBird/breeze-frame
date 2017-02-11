@@ -4,7 +4,9 @@ import javax.servlet.ServletContext;
 
 import org.bird.breeze.session.impl.ShareSession;
 
-public interface ISessionManager {
+import java.io.Serializable;
+
+public interface ISessionManager extends Serializable{
 	
 	public String[] getSessionIds();
 	public ShareSession getRemoteSession(String sessionId);

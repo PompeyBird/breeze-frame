@@ -13,6 +13,7 @@ import redis.clients.jedis.Jedis;
 
 public class RedisSessionManager implements ISessionManager {
 
+	private static final long serialVersionUID = -6733912749285642236L;
 	private ConcurrentHashMap<String, ShareSession> sessionMap = new ConcurrentHashMap<String, ShareSession>();
 	private ServletContext context;
 	private int maxInactiveInterval = 20*60*1000;
@@ -31,7 +32,7 @@ public class RedisSessionManager implements ISessionManager {
 		Jedis jedis = RedisUtils.getJedis();
 		byte[] keys = SerializeUtils.objectToByte(sessionId);
 		byte[] values = jedis.get(keys);
-		if(values.length > 0) {
+		if(null != values &&values.length > 0) {
 			ShareSession session = (ShareSession) SerializeUtils.byteToObject(values);
 			RedisUtils.returnResource(jedis);
 			return session;
