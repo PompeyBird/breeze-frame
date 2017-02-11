@@ -33,7 +33,7 @@ public class RedisSessionManager implements ISessionManager {
 		byte[] values = jedis.get(keys);
 		ShareSession session = (ShareSession)SerializeUtils.byteToObject(values);
 		RedisUtils.returnResource(jedis);
-		return null;
+		return session;
 	}
 
 	@Override

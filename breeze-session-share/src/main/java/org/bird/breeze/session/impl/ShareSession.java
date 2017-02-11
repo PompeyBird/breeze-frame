@@ -133,7 +133,7 @@ public class ShareSession implements HttpSession, Serializable  {
 		this.sessionManager.setMaxInactiveInterval(maxInactiveInterval);
 	}
 	
-	public void acesss(){
+	public void access(){
 		this.lastAccessedTime = System.currentTimeMillis();
 	}
 

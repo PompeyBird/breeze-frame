@@ -17,7 +17,7 @@ public class ShareHttpRequest extends HttpServletRequestWrapper {
 		if(null != requestedSessionId){
 			ShareSession shareSession = sessionManager.getRemoteSession(request.getRequestedSessionId());
 			if(null != shareSession){
-				shareSession.acesss();
+				shareSession.access();
 				shareSession.isNew(false);
 			}
 		}
@@ -34,7 +34,7 @@ public class ShareHttpRequest extends HttpServletRequestWrapper {
 			}
 			if(create){
 			shareSession = new ShareSession(getRequestedSessionId(), sessionManager);
-				shareSession.acesss();
+				shareSession.access();
 				sessionManager.setLocalSession(shareSession);
 				sessionManager.setRemoteSession(shareSession);
 			}
