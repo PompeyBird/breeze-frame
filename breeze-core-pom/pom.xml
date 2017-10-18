@@ -117,4 +117,16 @@
 		</plugin>
 	</plugins>
   </build>
+	<distributionManagement>
+		<repository>
+			<id>breeze-releases</id>
+			<name>Breeze Releases</name>
+			<url>http://127.0.0.1:18081/nexus/content/repositories/breeze-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>breeze-snapshots</id>
+			<name>Breeze Snapshots</name>
+			<url>http://127.0.0.1:18081/nexus/content/repositories/breeze-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
