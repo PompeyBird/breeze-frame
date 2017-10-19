@@ -12,8 +12,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * The enum Mongo db utils.
+ * @author pompey
+ */
 public enum MongoDBUtils {
 
+    /**
+     * Instance mongo db utils.
+     */
     instance;
 
     private MongoClient mongoClient;
@@ -24,9 +31,11 @@ public enum MongoDBUtils {
             if(is!=null) {
                 properties.load(is);
             }
+            String db = (String)properties.get("mongo.db");
+            String user = (String)properties.get("mongo.user");
+            String pwd = (String)properties.get("mongo.pwd");
             String ip = (String)properties.get("mongo.ip");
             Integer port = Integer.parseInt((String)properties.get("mongo.port"));
-//            instance.mongoClient = new MongoClient(ip, port);
             Integer connectionsPerHost = Integer.parseInt(
                     (String)properties.get("mongo.options.connectionsPerHost"));
             Integer threadsAllowed = Integer.parseInt(
@@ -37,15 +46,14 @@ public enum MongoDBUtils {
                     (String)properties.get("mongo.options.connectTimeout"));
             ServerAddress serverAddress=new ServerAddress(ip,port);
             MongoClientOptions options = new MongoClientOptions.Builder()
-                            .connectionsPerHost(50)
+                            .connectionsPerHost(connectionsPerHost)
                             .threadsAllowedToBlockForConnectionMultiplier(threadsAllowed)
                             .maxWaitTime(maxWaitTime*1000)
                             .connectTimeout(1000*connectTimeout).build();
-//            List<MongoCredential> lstCredentials =
-//                    Arrays.asList(MongoCredential.createMongoCRCredential(
-//                            "admin", "myinfo", "123456".toCharArray()));
-//            client = new MongoClient(new ServerAddress("127.0.0.1"),lstCredentials, clientOptions);
-            instance.mongoClient = new MongoClient(serverAddress, options);
+            List<MongoCredential> lstCredentials =
+                    Arrays.asList(MongoCredential.createCredential(
+                            user, db, pwd.toCharArray()));
+            instance.mongoClient = new MongoClient(serverAddress, lstCredentials, options);
 
         }
         catch (Exception e) {
