@@ -32,7 +32,8 @@ public class RedisUtils {
 			config.setMaxWaitMillis(Integer.parseInt((String)properties.get("redis.timeout")));
 			jedisPool = new JedisPool(config, (String)properties.get("redis.ip"), 
 					Integer.parseInt((String)properties.get("redis.port")), 
-					Integer.parseInt((String)properties.get("redis.timeout")));
+					Integer.parseInt((String)properties.get("redis.timeout")),
+					(String)properties.get("redis.pwd"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
