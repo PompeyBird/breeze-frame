@@ -13,6 +13,7 @@
   	<module>breeze-web-pom</module>
   	<module>breeze-util</module>
   	<module>breeze-session-share</module>
+      <module>breeze-web</module>
   </modules>
 
 </project>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menus>
+    <menu title="批量修改渠道商级别" code="DEALER_LEVEL" src="/pages/dealerup/fileUpload.jsp"></menu>
+    <menu title="开户行操作" code="OPRT_BANK" src="/pages/user/bank/addBank.jsp"><!-- Chenth added -->
+	</menu>
+	<menu title="仓库操作" code="storeHouse" src="/tools/storeHouse/toStoreHouse">
+	</menu>
+	<menu title="批量导入渠道商信息" code="addDealer" src="/pages/addDealer/fileUpload.jsp"><!-- lmj added -->
+	</menu>
+	<menu title="批量导入酬金信息" code="addCommission" src="/pages/addCommission/fileUpload.jsp"><!-- huangjk added -->
+	</menu>
+	<menu title="批量导入客户地址信息" code="address" src="/pages/address/addressImport.jsp"><!-- qh added -->
+	</menu>
+	<menu title="竞拍订单关联删除" code="auctionflow" src="/pages/order/auctionflow.jsp"><!-- lmj added -->
+	</menu>
+	<menu title="订单重传" code="order" src="/pages/order/updatesendOrder.jsp">
+	</menu>
+	<menu title="操作记录" code="OPRT_FLOW" src="/pages/sys/sysOprtFlowList.jsp">
+	</menu>
+	
+</menus>

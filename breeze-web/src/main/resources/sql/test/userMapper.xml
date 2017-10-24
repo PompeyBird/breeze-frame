@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="org.bird.breeze.web.test.dao.ICountryDao">
+
+<cache type="org.bird.breeze.common.MybatisRedisCache" />  
+
+<resultMap type="org.bird.breeze.web.test.bean.Country" id="countryResult">
+	<result column="Code" property="code" />
+	<result column="Name" property="name" />
+	<result column="Continent" property="continent"/>
+	<result column="Region" property="region"/>
+	<result column="SurfaceArea" property="surfaceArea"/>
+	<result column="IndepYear" property="indepYear"/>
+	<result column="Population" property="population"/>
+	<result column="LifeExpectancy" property="lifeExpectancy"/>
+	<result column="GNP" property="gnp"/>
+	<result column="GNPOld" property="gnpOld"/>
+	<result column="LocalName" property="localName"/>
+	<result column="GovernmentForm" property="governmentForm"/>
+	<result column="HeadOfState" property="headOfState"/>
+	<result column="Capital" property="capital"/>
+	<result column="Code2" property="code2"/>
+</resultMap>
+
+<sql id="selectSql">
+	Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, 
+    LifeExpectancy, GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2
+</sql>
+
+<sql id="whereSql">
+	<where>
+		<if test="code!=null and code!=''">
+			Code=#{code}
+		</if>
+		<if test="name!=null and name!=''">
+			and Name like '%${name}%' 
+		</if>
+		<if test="continent!=null and continent!=''">
+			and Continent=#{continent} 
+		</if>
+		<if test="region!=null and region!=''">
+			and Region=#{region} 
+		</if>
+		<if test="surfaceArea!=null">
+			and SurfaceArea=#{surfaceArea} 
+		</if>
+		<if test="indepYear!=null">
+			and IndepYear=#{indepYear} 
+		</if>
+		<if test="population!=null">
+			and Population=#{population} 
+		</if>
+		<if test="lifeExpectancy!=null">
+			and LifeExpectancy=#{lifeExpectancy} 
+		</if>
+		<if test="gnp!=null">
+			and GNP=#{gnp} 
+		</if>
+		<if test="gnpOld!=null">
+			and GNPOld=#{gnpOld} 
+		</if>
+		<if test="localName!=null and localName!=''">
+			and LocalName=#{localName} 
+		</if>
+		<if test="governmentForm!=null and governmentForm!=''">
+			and GovernmentForm=#{governmentForm} 
+		</if>
+		<if test="headOfState!=null and headOfState!=''">
+			and HeadOfState=#{headOfState} 
+		</if>
+		<if test="capital!=null and capital!=''">
+			and Capital=#{capital} 
+		</if>
+		<if test="code2!=null and code2!=''">
+			and Code2=#{code2} 
+		</if>
+	</where>
+</sql>
+
+<sql id="setSql">
+	<set>
+		<if test="code!=null and code!=''">
+			Code=#{code},
+		</if>
+		<if test="name!=null and name!=''">
+			Name=#{name},
+		</if>
+		<if test="continent!=null and continent!=''">
+			Continent=#{continent},
+		</if>
+		<if test="region!=null and region!=''">
+			Region=#{region}, 
+		</if>
+		<if test="surfaceArea!=null">
+			SurfaceArea=#{surfaceArea}, 
+		</if>
+		<if test="indepYear!=null">
+			IndepYear=#{indepYear}, 
+		</if>
+		<if test="population!=null">
+			Population=#{population}, 
+		</if>
+		<if test="lifeExpectancy!=null">
+			LifeExpectancy=#{lifeExpectancy}, 
+		</if>
+		<if test="gnp!=null">
+			GNP=#{gnp}, 
+		</if>
+		<if test="gnpOld!=null">
+			GNPOld=#{gnpOld}, 
+		</if>
+		<if test="localName!=null and localName!=''">
+			LocalName=#{localName}, 
+		</if>
+		<if test="governmentForm!=null and governmentForm!=''">
+			GovernmentForm=#{governmentForm}, 
+		</if>
+		<if test="headOfState!=null and headOfState!=''">
+			HeadOfState=#{headOfState}, 
+		</if>
+		<if test="capital!=null and capital!=''">
+			Capital=#{capital}, 
+		</if>
+		<if test="code2!=null and code2!=''">
+			Code2=#{code2} 
+		</if>
+	</set>
+</sql>
+
+<select id="getCountry" parameterType="java.lang.String" resultMap="countryResult">  
+    select 
+    <include refid="selectSql" />
+    from Country where Code=#{code}
+</select>  
+<select id="queryCountry" parameterType="org.bird.breeze.web.test.bean.Country" resultMap="countryResult">  
+    select 
+    <include refid="selectSql" />
+    from Country
+    <include refid="whereSql" />
+</select> 
+<insert id="addCountry" parameterType="org.bird.breeze.web.test.bean.Country" flushCache="true">  
+   insert into Country (<include refid="selectSql" />) 
+   values (
+   #{code},#{name},#{continent},#{region},#{surfaceArea},#{indepYear},#{population},
+   #{lifeExpectancy},#{gnp},#{gnpOld},#{localName},#{governmentForm},#{headOfState},#{capital},#{code2}
+   )
+</insert>  
+<update id="updateCountry" parameterType="org.bird.breeze.web.test.bean.Country">  
+    update Country 
+    <include refid="setSql" />
+    where Code=#{code}
+</update>  
+<delete id="deleteCountry" parameterType="java.lang.String">  
+    delete from Country where Code=#{code}  
+</delete>  
+</mapper>
