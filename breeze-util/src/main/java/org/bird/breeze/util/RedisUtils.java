@@ -9,6 +9,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+/**
+ * @author pompey
+ */
 public class RedisUtils {
 
 	private static JedisPool jedisPool = null;
@@ -22,8 +25,9 @@ public class RedisUtils {
 	static {
 		try {
 			is = RedisUtils.class.getClassLoader().getResourceAsStream("breeze-config.properties") ;
-			if(is!=null)
-				properties.load(is) ;
+			if(is!=null){
+				properties.load(is);
+			}
 			JedisPoolConfig config = new JedisPoolConfig();
 			//可用连接实例的最大数目，默认值为8；
 			config.setMaxTotal(Integer.parseInt((String)properties.get("redis.maxactive")));
